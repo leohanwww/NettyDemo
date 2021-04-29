@@ -32,6 +32,7 @@ public class NettyServer {
         System.out.println("...Server is ready...");
         //10.启动服务器端并绑定端口，等待接受客户端连接(非阻塞)
         ChannelFuture cf = b.bind(9999).sync();
+        //bind方法是异步的,产生channelfuture对象,产生channelfuture对象,cf对象的sync()方法是同步的
         System.out.println("......Server is Starting......");
         //11.关闭通道，关闭线程池
         cf.channel().closeFuture().sync();

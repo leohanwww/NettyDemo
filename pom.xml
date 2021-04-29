@@ -14,6 +14,11 @@
             <artifactId>netty-transport</artifactId>
             <version>4.1.27.Final</version>
         </dependency>
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-codec</artifactId>
+            <version>4.1.27.Final</version>
+        </dependency>
     </dependencies>
 
 
