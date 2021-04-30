@@ -23,7 +23,7 @@ public class ChatClient {
         this.port = port;
     }
 
-    public void run(){
+    public void run() {
         EventLoopGroup group = new NioEventLoopGroup();
         try {
             Bootstrap bootstrap = new Bootstrap()
@@ -31,24 +31,24 @@ public class ChatClient {
                     .channel(NioSocketChannel.class)
                     .handler(new ChannelInitializer<SocketChannel>() {
                         @Override
-                        public void initChannel(SocketChannel ch){
-                            ChannelPipeline pipeline=ch.pipeline();
+                        public void initChannel(SocketChannel ch) {
+                            ChannelPipeline pipeline = ch.pipeline();
                             //往pipeline链中添加一个解码器
-                            pipeline.addLast("decoder",new StringDecoder());
+                            pipeline.addLast("decoder", new StringDecoder());
                             //往pipeline链中添加一个编码器
-                            pipeline.addLast("encoder",new StringEncoder());
+                            pipeline.addLast("encoder", new StringEncoder());
                             //往pipeline链中添加自定义的handler(业务处理类)
                             pipeline.addLast(new ChatClientHandler());
                         }
                     });
 
-            ChannelFuture cf=bootstrap.connect(host,port).sync();
-            Channel channel=cf.channel();
-            System.out.println("------"+channel.localAddress().toString().substring(1)+"------");
-            Scanner scanner=new Scanner(System.in);
-            while (scanner.hasNextLine()){
-                String msg=scanner.nextLine();
-                channel.writeAndFlush(msg+"\r\n"); //使用通道发送出消息
+            ChannelFuture cf = bootstrap.connect(host, port).sync();
+            Channel channel = cf.channel();
+            System.out.println("------" + channel.localAddress().toString().substring(1) + "------");
+            Scanner scanner = new Scanner(System.in);
+            while (scanner.hasNextLine()) {
+                String msg = scanner.nextLine();
+                channel.writeAndFlush(msg + "\r\n"); //使用通道发送出消息
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -58,6 +58,6 @@ public class ChatClient {
     }
 
     public static void main(String[] args) throws Exception {
-        new ChatClient("127.0.0.1",9999).run();
+        new ChatClient("127.0.0.1", 9999).run();
     }
 }
